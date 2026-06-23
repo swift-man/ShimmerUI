@@ -35,5 +35,5 @@ jobs:
           publish_branch: main
           publish_dir: ./docs
           destination_dir: ShimmerUI
-          keep_files: true
+          keep_files: false
           full_commit_message: Deploy ShimmerUI DocC from ${{ github.repository }}@${{ github.sha }}

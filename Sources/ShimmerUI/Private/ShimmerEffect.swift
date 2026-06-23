@@ -46,13 +46,12 @@ struct ShimmerModifier: ViewModifier {
               )
             }
           }
-          .mask {
-            content
-          }
+          .blendMode(.sourceAtop)
           .allowsHitTesting(false)
           .accessibilityHidden(true)
         }
       }
+      .compositingGroup()
       .task(id: token) {
         guard shouldAnimate else { return }
         animationStart = Date()

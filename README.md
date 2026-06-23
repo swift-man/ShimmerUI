@@ -1,5 +1,12 @@
 # ShimmerUI
 
+![Badge](https://img.shields.io/badge/swift-6.0-white.svg?style=flat-square&logo=Swift)
+![Badge](https://img.shields.io/badge/SwiftUI-001b87.svg?style=flat-square&logo=Swift&logoColor=black)
+![Badge - Version](https://img.shields.io/badge/Version-0.1.0-1177AA?style=flat-square)
+![Badge - Swift Package Manager](https://img.shields.io/badge/SPM-compatible-orange?style=flat-square)
+![Badge - Platform](https://img.shields.io/badge/platform-mac_12|ios_15|watchos_8|tvos_15-yellow?style=flat-square)
+![Badge - License](https://img.shields.io/badge/license-MIT-black?style=flat-square)
+
 SwiftUI shimmer components distributed as a Swift Package.
 
 ## Requirements
@@ -15,7 +22,7 @@ SwiftUI shimmer components distributed as a Swift Package.
 Add this package to your Swift Package dependencies:
 
 ```swift
-.package(url: "https://github.com/<owner>/ShimmerUI.git", from: "0.1.0")
+.package(url: "https://github.com/swift-man/ShimmerUI.git", from: "0.1.0")
 ```
 
 Then add `ShimmerUI` to your target dependencies:

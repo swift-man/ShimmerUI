@@ -52,6 +52,7 @@ public extension ShimmerLoadingUI {
       }
       .frame(maxWidth: .infinity, alignment: .leading)
       .frame(height: totalHeight, alignment: .top)
+      .opacity(measuredWidth > 0 ? 1 : 0)
       .background {
         GeometryReader { proxy in
           Color.clear

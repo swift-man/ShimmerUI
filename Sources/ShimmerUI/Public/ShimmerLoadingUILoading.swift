@@ -8,6 +8,15 @@
 import Foundation
 import SwiftUI
 
+private enum ShimmerLoadingTransition {
+  static let defaultDuration: TimeInterval = 0.28
+
+  static func normalizedDuration(_ duration: TimeInterval) -> TimeInterval {
+    guard duration.isFinite else { return defaultDuration }
+    return max(0, duration)
+  }
+}
+
 public extension ShimmerLoadingUI {
   /// 실제 콘텐츠와 스켈레톤을 같은 레이아웃에 유지해 자연스럽게 교차 전환합니다.
   struct Loading<Content: View, Placeholder: View>: View {
@@ -29,7 +38,7 @@ public extension ShimmerLoadingUI {
     ) {
       self.isLoading = isLoading
       self.configuration = configuration
-      self.transitionDuration = max(0, transitionDuration)
+      self.transitionDuration = ShimmerLoadingTransition.normalizedDuration(transitionDuration)
       self.content = content()
       self.placeholder = placeholder()
     }
@@ -44,6 +53,10 @@ public extension ShimmerLoadingUI {
           .allowsHitTesting(!isLoading)
           .accessibilityHidden(isLoading)
           .zIndex(isLoading ? 0 : 1)
+          .animation(
+            .easeInOut(duration: transitionDuration),
+            value: isLoading
+          )
 
         placeholder
           .environment(\.shimmerBaseColor, configuration.baseColor)
@@ -59,11 +72,11 @@ public extension ShimmerLoadingUI {
           .allowsHitTesting(false)
           .accessibilityHidden(true)
           .zIndex(isLoading ? 1 : 0)
+          .animation(
+            .easeInOut(duration: transitionDuration),
+            value: isLoading
+          )
       }
-      .animation(
-        .easeInOut(duration: transitionDuration),
-        value: isLoading
-      )
     }
   }
 }

@@ -28,6 +28,9 @@ struct ShimmerUITests {
     let text = ShimmerText("테스트")
     let block = ShimmerLoadingUI.Block()
     let multiline = ShimmerLoadingUI.Multiline(lineCount: 2)
+    let container = ShimmerLoadingUI.Container {
+      multiline
+    }
     let loading = ShimmerLoadingUI.Loading(
       isLoading: true,
       configuration: .init(),
@@ -42,6 +45,7 @@ struct ShimmerUITests {
     #expect(type(of: text) == ShimmerText.self)
     #expect(type(of: block) == ShimmerLoadingUI.Block.self)
     #expect(type(of: multiline) == ShimmerLoadingUI.Multiline.self)
+    #expect(type(of: container) == ShimmerLoadingUI.Container<ShimmerLoadingUI.Multiline>.self)
     #expect(type(of: loading) == ShimmerLoadingUI.Loading<ShimmerLoadingUI.Block, ShimmerLoadingUI.Multiline>.self)
   }
 

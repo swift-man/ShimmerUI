@@ -42,7 +42,7 @@ struct ContentView: View {
     VStack(spacing: 24) {
       ShimmerText("Loading")
 
-      ShimmerLoadingUI.Skeleton {
+      ShimmerLoadingUI.Container {
         ShimmerLoadingUI.ScreenPlaceholder(rowCount: 3)
       }
     }
@@ -65,6 +65,7 @@ ShimmerLoadingUI.Loading(isLoading: isLoading) {
 
 - `ShimmerText`
 - `ShimmerLoadingUI`
+- `ShimmerLoadingUI.Container`
 - `ShimmerConfiguration`
 - `ShimmerConfigurationColorPreset`
 - `ShimmerDirection`

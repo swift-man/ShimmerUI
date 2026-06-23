@@ -2,7 +2,7 @@ import SwiftUI
 
 public extension ShimmerLoadingUI {
   /// 플레이스홀더 전체에 shimmer를 한 번만 적용합니다.
-  struct Skeleton<Placeholder: View>: View {
+  struct Container<Placeholder: View>: View {
     private let configuration: ShimmerConfiguration
     private let placeholder: Placeholder
 

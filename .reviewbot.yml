@@ -1,0 +1,63 @@
+version: 1
+
+review:
+  include:
+  - "**/*.swift"
+  - "**/*.md"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.json"
+  - "Package.swift"
+  - "README.md"
+  - "LICENSE"
+
+  exclude:
+  # dependency / build output
+  - ".build/**"
+  - ".swiftpm/**"
+  - "DerivedData/**"
+  - "build/**"
+  - "**/build/**"
+
+  # generated documentation output
+  - "docs/**"
+  - "**/*.doccarchive/**"
+  - ".docc-build/**"
+
+  # generated source
+  - "**/Generated/**"
+  - "**/*.generated.swift"
+  - "**/*.pb.swift"
+  - "**/*.graphql.swift"
+  - "**/*+Generated.swift"
+
+  # resources / binary assets
+  - "**/*.xcassets/**"
+  - "assets/**"
+  - "**/*.png"
+  - "**/*.jpg"
+  - "**/*.jpeg"
+  - "**/*.gif"
+  - "**/*.webp"
+  - "**/*.pdf"
+  - "**/*.mp4"
+  - "**/*.mov"
+
+  # local dependency manager artifacts
+  - "Package.resolved"
+  - "Podfile.lock"
+  - "Pods/**"
+  - "Carthage/**"
+  - "Carthage/Build/**"
+  - "Dependencies/**"
+
+  always_review:
+  - ".reviewbot.yml"
+  - ".github/workflows/**"
+  - ".gitignore"
+  - "Package.swift"
+  - "README.md"
+  - "AGENTS.md"
+  - "GeneratingDocumentationSite"
+  - "Sources/ShimmerUI/**/*.swift"
+  - "Sources/ShimmerUI/**/*.docc/**"

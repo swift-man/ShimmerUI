@@ -4,7 +4,7 @@
 ![Badge](https://img.shields.io/badge/SwiftUI-001b87.svg?style=flat-square&logo=Swift&logoColor=black)
 ![Badge - Version](https://img.shields.io/badge/Version-0.1.0-1177AA?style=flat-square)
 ![Badge - Swift Package Manager](https://img.shields.io/badge/SPM-compatible-orange?style=flat-square)
-![Badge - Platform](https://img.shields.io/badge/platform-mac_12|ios_15|watchos_8|tvos_15-yellow?style=flat-square)
+![Badge - Platform](https://img.shields.io/badge/platform-mac_12|ios_15|watchOS_8|tvos_15-yellow?style=flat-square)
 ![Badge - License](https://img.shields.io/badge/license-MIT-black?style=flat-square)
 
 SwiftUI shimmer components distributed as a Swift Package.

@@ -10,15 +10,15 @@ import Foundation
 import SwiftUI
 
 public struct ShimmerConfiguration {
-  public var baseColor: Color
-  public var highlightColor: Color
-  public var duration: TimeInterval
-  public var direction: ShimmerDirection
+  public let baseColor: Color
+  public let highlightColor: Color
+  public let duration: TimeInterval
+  public let direction: ShimmerDirection
 
   /// 1.0을 기준으로 빛띠의 폭을 조절합니다.
-  public var bandWidthRatio: CGFloat
+  public let bandWidthRatio: CGFloat
 
-  public var isActive: Bool
+  public let isActive: Bool
 
   public init(
     baseColor: Color = ShimmerConfigurationColorPreset.light.baseColor,
@@ -54,9 +54,14 @@ public struct ShimmerConfiguration {
   }
 
   public func active(_ value: Bool) -> Self {
-    var copy = self
-    copy.isActive = value
-    return copy
+    Self(
+      baseColor: baseColor,
+      highlightColor: highlightColor,
+      duration: duration,
+      direction: direction,
+      bandWidthRatio: bandWidthRatio,
+      isActive: value
+    )
   }
 }
 

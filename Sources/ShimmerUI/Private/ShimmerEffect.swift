@@ -46,6 +46,7 @@ struct ShimmerModifier: ViewModifier {
               )
             }
           }
+          // Keep the source view mounted once; sourceAtop confines the shimmer to visible pixels.
           .blendMode(.sourceAtop)
           .allowsHitTesting(false)
           .accessibilityHidden(true)
@@ -59,8 +60,12 @@ struct ShimmerModifier: ViewModifier {
   }
 
   private func progress(at date: Date) -> CGFloat {
-    let duration = max(configuration.duration, 0.1)
+    let duration = configuration.duration
+    guard duration.isFinite, duration > 0 else { return 0 }
+
     let elapsed = max(0, date.timeIntervalSince(animationStart))
+    guard elapsed.isFinite else { return 0 }
+
     let cycle = elapsed.truncatingRemainder(dividingBy: duration)
     return CGFloat(cycle / duration)
   }

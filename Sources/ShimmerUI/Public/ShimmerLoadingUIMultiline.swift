@@ -8,6 +8,14 @@
 import CoreGraphics
 import SwiftUI
 
+private struct ShimmerMultilineWidthPreferenceKey: PreferenceKey {
+  static var defaultValue: CGFloat = 0
+
+  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+    value = nextValue()
+  }
+}
+
 public extension ShimmerLoadingUI {
   /// multiline_corner.png 형태의 텍스트 스켈레톤입니다.
   struct Multiline: View {
@@ -16,6 +24,7 @@ public extension ShimmerLoadingUI {
     private let lineSpacing: CGFloat
     private let cornerRadius: CGFloat
     private let lastLineFillRatio: CGFloat
+    @State private var measuredWidth: CGFloat = 0
 
     public init(
       lineCount: Int = 3,
@@ -32,23 +41,39 @@ public extension ShimmerLoadingUI {
     }
 
     public var body: some View {
-      GeometryReader { proxy in
-        VStack(alignment: .leading, spacing: lineSpacing) {
-          ForEach(0..<lineCount, id: \.self) { index in
-            Block(.roundedRectangle(cornerRadius: cornerRadius))
-              .frame(
-                width: proxy.size.width * widthRatio(for: index),
-                height: lineHeight
-              )
-          }
+      VStack(alignment: .leading, spacing: lineSpacing) {
+        ForEach(0..<lineCount, id: \.self) { index in
+          Block(.roundedRectangle(cornerRadius: cornerRadius))
+            .frame(
+              width: lineWidth(for: index),
+              height: lineHeight
+            )
         }
       }
-      .frame(height: totalHeight)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .frame(height: totalHeight, alignment: .top)
+      .background {
+        GeometryReader { proxy in
+          Color.clear
+            .preference(
+              key: ShimmerMultilineWidthPreferenceKey.self,
+              value: proxy.size.width
+            )
+        }
+      }
+      .onPreferenceChange(ShimmerMultilineWidthPreferenceKey.self) { width in
+        measuredWidth = max(0, width)
+      }
     }
 
     private var totalHeight: CGFloat {
       CGFloat(lineCount) * lineHeight +
       CGFloat(max(0, lineCount - 1)) * lineSpacing
+    }
+
+    private func lineWidth(for index: Int) -> CGFloat? {
+      guard measuredWidth.isFinite, measuredWidth > 0 else { return nil }
+      return measuredWidth * widthRatio(for: index)
     }
 
     private func widthRatio(for index: Int) -> CGFloat {

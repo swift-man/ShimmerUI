@@ -57,6 +57,30 @@ struct ShimmerUITests {
   }
 
   @Test
+  func shimmerConfigurationNormalizesInvalidValues() {
+    let nonFinite = ShimmerConfiguration(
+      duration: .nan,
+      bandWidthRatio: .infinity
+    )
+    #expect(nonFinite.duration == 1.2)
+    #expect(nonFinite.bandWidthRatio == 1.4)
+
+    let belowMinimum = ShimmerConfiguration(
+      duration: -1,
+      bandWidthRatio: -2
+    )
+    #expect(belowMinimum.duration == 0.1)
+    #expect(belowMinimum.bandWidthRatio == 0.1)
+
+    let aboveMaximum = ShimmerConfiguration(
+      duration: 2,
+      bandWidthRatio: 10
+    )
+    #expect(aboveMaximum.duration == 2)
+    #expect(aboveMaximum.bandWidthRatio == 3)
+  }
+
+  @Test
   func legacyTypeAliasStillWorks() {
     let legacyName: ShimmerUI.Type = ShimmerLoadingUI.self
     #expect(legacyName == ShimmerLoadingUI.self)

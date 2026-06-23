@@ -30,9 +30,9 @@ public struct ShimmerConfiguration {
   ) {
     self.baseColor = baseColor
     self.highlightColor = highlightColor
-    self.duration = duration
+    self.duration = Self.normalizedDuration(duration)
     self.direction = direction
-    self.bandWidthRatio = bandWidthRatio
+    self.bandWidthRatio = Self.normalizedBandWidthRatio(bandWidthRatio)
     self.isActive = isActive
   }
 
@@ -57,5 +57,23 @@ public struct ShimmerConfiguration {
     var copy = self
     copy.isActive = value
     return copy
+  }
+}
+
+private extension ShimmerConfiguration {
+  static let defaultDuration: TimeInterval = 1.2
+  static let minimumDuration: TimeInterval = 0.1
+  static let defaultBandWidthRatio: CGFloat = 1.4
+  static let minimumBandWidthRatio: CGFloat = 0.1
+  static let maximumBandWidthRatio: CGFloat = 3
+
+  static func normalizedDuration(_ duration: TimeInterval) -> TimeInterval {
+    guard duration.isFinite else { return defaultDuration }
+    return max(duration, minimumDuration)
+  }
+
+  static func normalizedBandWidthRatio(_ bandWidthRatio: CGFloat) -> CGFloat {
+    guard bandWidthRatio.isFinite else { return defaultBandWidthRatio }
+    return min(max(bandWidthRatio, minimumBandWidthRatio), maximumBandWidthRatio)
   }
 }

@@ -1,3 +1,10 @@
+//
+//  View+Shimmer.swift
+//  ShimmerUI
+//
+//  Created by Gorani on 6/23/26.
+//
+
 import SwiftUI
 
 public extension View {

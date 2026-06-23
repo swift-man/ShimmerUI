@@ -1,3 +1,10 @@
+//
+//  ShimmerConfiguration.swift
+//  ShimmerUI
+//
+//  Created by Gorani on 6/23/26.
+//
+
 import CoreGraphics
 import Foundation
 import SwiftUI

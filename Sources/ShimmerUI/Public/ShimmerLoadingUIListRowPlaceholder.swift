@@ -1,3 +1,10 @@
+//
+//  ShimmerLoadingUIListRowPlaceholder.swift
+//  ShimmerUI
+//
+//  Created by Gorani on 6/23/26.
+//
+
 import CoreGraphics
 import SwiftUI
 

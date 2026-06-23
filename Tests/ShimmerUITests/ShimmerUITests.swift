@@ -1,3 +1,10 @@
+//
+//  ShimmerUITests.swift
+//  ShimmerUITests
+//
+//  Created by Gorani on 6/23/26.
+//
+
 import Foundation
 import SwiftUI
 import Testing

@@ -1,3 +1,10 @@
+//
+//  ShimmerConfigurationColorPreset.swift
+//  ShimmerUI
+//
+//  Created by Gorani on 6/23/26.
+//
+
 import SwiftUI
 
 public enum ShimmerConfigurationColorPreset {

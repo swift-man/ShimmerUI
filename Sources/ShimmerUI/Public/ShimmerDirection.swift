@@ -1,3 +1,10 @@
+//
+//  ShimmerDirection.swift
+//  ShimmerUI
+//
+//  Created by Gorani on 6/23/26.
+//
+
 public enum ShimmerDirection: String, CaseIterable, Identifiable, Hashable {
   case leftRight
   case rightLeft

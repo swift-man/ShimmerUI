@@ -1,3 +1,10 @@
+//
+//  ShimmerLoadingUIEnvironment.swift
+//  ShimmerUI
+//
+//  Created by Gorani on 6/23/26.
+//
+
 import SwiftUI
 
 private struct ShimmerBaseColorKey: EnvironmentKey {

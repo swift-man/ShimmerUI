@@ -84,8 +84,11 @@ private struct ShimmerBand: View {
       1
     )
 
-    // 기존 1.4 기본값을 유지하면서 실제 밴드는 화면 대각선의 약 25%가 되도록 계산합니다.
-    let safeRatio = min(max(configuration.bandWidthRatio, 0.1), 3)
+    // 화면 대각선과 bandWidthRatio를 기반으로 AI 스타일의 넓은 빛띠 폭을 계산합니다.
+    let safeRatio = min(
+      max(configuration.bandWidthRatio, ShimmerConfiguration.minimumBandWidthRatio),
+      ShimmerConfiguration.maximumBandWidthRatio
+    )
     let bandWidth = max(18, diagonal * 0.18 * safeRatio)
     let crossLength = diagonal * 2.2 + bandWidth
 

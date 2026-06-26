@@ -65,7 +65,7 @@ public struct ShimmerConfiguration {
   }
 }
 
-private extension ShimmerConfiguration {
+extension ShimmerConfiguration {
   static let defaultDuration: TimeInterval = 1.2
   static let minimumDuration: TimeInterval = 0.1
   static let defaultBandWidthRatio: CGFloat = 2.2

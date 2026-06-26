@@ -51,6 +51,15 @@ struct ContentView: View {
 }
 ```
 
+Use `bandWidthRatio` to tune the shimmer sweep width. The default is tuned for a wider AI loading effect, and you can increase it further when needed:
+
+```swift
+ShimmerText(
+  "Thinking",
+  configuration: .init(bandWidthRatio: 2.6)
+)
+```
+
 Use `ShimmerLoadingUI.Loading` to keep the real content and placeholder in the same layout while loading:
 
 ```swift

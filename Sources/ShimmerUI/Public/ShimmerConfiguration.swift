@@ -25,7 +25,7 @@ public struct ShimmerConfiguration {
     highlightColor: Color = ShimmerConfigurationColorPreset.light.highlightColor,
     duration: TimeInterval = 1.2,
     direction: ShimmerDirection = .leftRight,
-    bandWidthRatio: CGFloat = 1.4,
+    bandWidthRatio: CGFloat = 2.2,
     isActive: Bool = true
   ) {
     self.baseColor = baseColor
@@ -40,7 +40,7 @@ public struct ShimmerConfiguration {
     preset: ShimmerConfigurationColorPreset,
     duration: TimeInterval = 1.2,
     direction: ShimmerDirection = .leftRight,
-    bandWidthRatio: CGFloat = 1.4,
+    bandWidthRatio: CGFloat = 2.2,
     isActive: Bool = true
   ) {
     self.init(
@@ -68,7 +68,7 @@ public struct ShimmerConfiguration {
 private extension ShimmerConfiguration {
   static let defaultDuration: TimeInterval = 1.2
   static let minimumDuration: TimeInterval = 0.1
-  static let defaultBandWidthRatio: CGFloat = 1.4
+  static let defaultBandWidthRatio: CGFloat = 2.2
   static let minimumBandWidthRatio: CGFloat = 0.1
   static let maximumBandWidthRatio: CGFloat = 3
 

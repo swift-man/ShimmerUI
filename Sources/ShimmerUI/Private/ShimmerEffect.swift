@@ -73,6 +73,10 @@ struct ShimmerModifier: ViewModifier {
 
 @MainActor
 private struct ShimmerBand: View {
+  private static let minimumBandWidth: CGFloat = 18
+  private static let bandWidthScaleFactor: CGFloat = 0.18
+  private static let minimumCrossLengthMultiplier: CGFloat = 2.2
+
   let size: CGSize
   let progress: CGFloat
   let configuration: ShimmerConfiguration
@@ -89,8 +93,12 @@ private struct ShimmerBand: View {
       max(configuration.bandWidthRatio, ShimmerConfiguration.minimumBandWidthRatio),
       ShimmerConfiguration.maximumBandWidthRatio
     )
-    let bandWidth = max(18, diagonal * 0.18 * safeRatio)
-    let crossLength = diagonal * 2.2 + bandWidth
+    let bandWidth = max(
+      Self.minimumBandWidth,
+      diagonal * Self.bandWidthScaleFactor * safeRatio
+    )
+    let crossLengthMultiplier = max(Self.minimumCrossLengthMultiplier, safeRatio)
+    let crossLength = diagonal * crossLengthMultiplier + bandWidth
 
     // 진행 방향으로 뷰를 투영한 길이를 이용해 시작/종료 지점을 화면 밖으로 배치합니다.
     let projectedHalfLength = (

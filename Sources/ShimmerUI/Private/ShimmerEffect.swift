@@ -73,10 +73,6 @@ struct ShimmerModifier: ViewModifier {
 
 @MainActor
 private struct ShimmerBand: View {
-  private static let minimumBandWidth: CGFloat = 18
-  private static let bandWidthScaleFactor: CGFloat = 0.18
-  private static let minimumCrossLengthMultiplier: CGFloat = 2.2
-
   let size: CGSize
   let progress: CGFloat
   let configuration: ShimmerConfiguration
@@ -87,18 +83,10 @@ private struct ShimmerBand: View {
       (size.width * size.width + size.height * size.height).squareRoot(),
       1
     )
-
-    // 화면 대각선과 bandWidthRatio를 기반으로 AI 스타일의 넓은 빛띠 폭을 계산합니다.
-    let safeRatio = min(
-      max(configuration.bandWidthRatio, ShimmerConfiguration.minimumBandWidthRatio),
-      ShimmerConfiguration.maximumBandWidthRatio
+    let geometry = ShimmerBandGeometry(
+      diagonal: diagonal,
+      bandWidthRatio: configuration.bandWidthRatio
     )
-    let bandWidth = max(
-      Self.minimumBandWidth,
-      diagonal * Self.bandWidthScaleFactor * safeRatio
-    )
-    let crossLengthMultiplier = max(Self.minimumCrossLengthMultiplier, safeRatio)
-    let crossLength = diagonal * crossLengthMultiplier + bandWidth
 
     // 진행 방향으로 뷰를 투영한 길이를 이용해 시작/종료 지점을 화면 밖으로 배치합니다.
     let projectedHalfLength = (
@@ -106,7 +94,7 @@ private struct ShimmerBand: View {
       abs(vector.dy) * size.height
     ) / 2
 
-    let travelDistance = projectedHalfLength + bandWidth
+    let travelDistance = projectedHalfLength + geometry.bandWidth
     let phase = min(max(progress, 0), 1) * 2 - 1
 
     LinearGradient(
@@ -120,7 +108,7 @@ private struct ShimmerBand: View {
       startPoint: .leading,
       endPoint: .trailing
     )
-    .frame(width: bandWidth, height: crossLength)
+    .frame(width: geometry.bandWidth, height: geometry.crossLength)
     .rotationEffect(configuration.direction.angle)
     .position(
       x: size.width / 2 + vector.dx * phase * travelDistance,

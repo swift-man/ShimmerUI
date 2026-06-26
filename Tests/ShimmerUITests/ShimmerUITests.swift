@@ -63,7 +63,7 @@ struct ShimmerUITests {
       bandWidthRatio: .infinity
     )
     #expect(nonFinite.duration == 1.2)
-    #expect(nonFinite.bandWidthRatio == 1.4)
+    #expect(nonFinite.bandWidthRatio == 2.2)
 
     let belowMinimum = ShimmerConfiguration(
       duration: -1,

@@ -83,11 +83,10 @@ private struct ShimmerBand: View {
       (size.width * size.width + size.height * size.height).squareRoot(),
       1
     )
-
-    // 기존 1.4 기본값을 유지하면서 실제 밴드는 화면 대각선의 약 25%가 되도록 계산합니다.
-    let safeRatio = min(max(configuration.bandWidthRatio, 0.1), 3)
-    let bandWidth = max(18, diagonal * 0.18 * safeRatio)
-    let crossLength = diagonal * 2.2 + bandWidth
+    let geometry = ShimmerBandGeometry(
+      diagonal: diagonal,
+      bandWidthRatio: configuration.bandWidthRatio
+    )
 
     // 진행 방향으로 뷰를 투영한 길이를 이용해 시작/종료 지점을 화면 밖으로 배치합니다.
     let projectedHalfLength = (
@@ -95,7 +94,7 @@ private struct ShimmerBand: View {
       abs(vector.dy) * size.height
     ) / 2
 
-    let travelDistance = projectedHalfLength + bandWidth
+    let travelDistance = projectedHalfLength + geometry.bandWidth
     let phase = min(max(progress, 0), 1) * 2 - 1
 
     LinearGradient(
@@ -109,7 +108,7 @@ private struct ShimmerBand: View {
       startPoint: .leading,
       endPoint: .trailing
     )
-    .frame(width: bandWidth, height: crossLength)
+    .frame(width: geometry.bandWidth, height: geometry.crossLength)
     .rotationEffect(configuration.direction.angle)
     .position(
       x: size.width / 2 + vector.dx * phase * travelDistance,

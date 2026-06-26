@@ -11,6 +11,11 @@ Use ``ShimmerLoadingUI`` when a view needs reusable shimmer placeholders or a lo
 ```swift
 ShimmerText("Loading")
 
+ShimmerText(
+  "Thinking",
+  configuration: .init(bandWidthRatio: 2.6)
+)
+
 ShimmerLoadingUI.Container {
   ShimmerLoadingUI.ScreenPlaceholder(rowCount: 3)
 }
@@ -22,4 +27,4 @@ ShimmerLoadingUI.Loading(isLoading: isLoading) {
 }
 ```
 
-Customize shimmer behavior with ``ShimmerConfiguration`` and ``ShimmerDirection``.
+Customize shimmer behavior with ``ShimmerConfiguration`` and ``ShimmerDirection``. Use `bandWidthRatio` to control the shimmer sweep width.

@@ -10,7 +10,7 @@ import CoreGraphics
 struct ShimmerBandGeometry: Equatable {
   private static let minimumBandWidth: CGFloat = 18
   private static let bandWidthScaleFactor: CGFloat = 0.18
-  private static let minimumCrossLengthMultiplier = ShimmerConfiguration.defaultBandWidthRatio
+  private static let minimumCrossLengthMultiplier: CGFloat = 2.2
 
   let bandWidth: CGFloat
   let crossLength: CGFloat

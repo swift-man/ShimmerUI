@@ -70,7 +70,7 @@ extension ShimmerConfiguration {
   static let minimumDuration: TimeInterval = 0.1
   static let defaultBandWidthRatio: CGFloat = 2.2
   static let minimumBandWidthRatio: CGFloat = 0.1
-  static let maximumBandWidthRatio: CGFloat = 3
+  static let maximumBandWidthRatio: CGFloat = 6
 
   static func normalizedDuration(_ duration: TimeInterval) -> TimeInterval {
     guard duration.isFinite else { return defaultDuration }

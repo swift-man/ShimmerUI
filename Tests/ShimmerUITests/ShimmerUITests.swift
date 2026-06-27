@@ -77,7 +77,7 @@ struct ShimmerUITests {
       bandWidthRatio: 10
     )
     #expect(aboveMaximum.duration == 2)
-    #expect(aboveMaximum.bandWidthRatio == 3)
+    #expect(aboveMaximum.bandWidthRatio == 6)
   }
 
   @Test

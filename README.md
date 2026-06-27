@@ -51,7 +51,7 @@ struct ContentView: View {
 }
 ```
 
-Use `bandWidthRatio` to tune the shimmer sweep width. The default is tuned for a wider AI loading effect, and you can increase it further when needed:
+Use `bandWidthRatio` to tune the shimmer sweep width. The default is tuned for a wider AI loading effect, and values are clamped to the `0.1...6` range so you can increase it further when needed:
 
 ```swift
 ShimmerText(

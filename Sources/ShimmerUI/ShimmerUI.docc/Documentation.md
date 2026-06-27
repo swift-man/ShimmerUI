@@ -27,4 +27,4 @@ ShimmerLoadingUI.Loading(isLoading: isLoading) {
 }
 ```
 
-Customize shimmer behavior with ``ShimmerConfiguration`` and ``ShimmerDirection``. Use `bandWidthRatio` to control the shimmer sweep width.
+Customize shimmer behavior with ``ShimmerConfiguration`` and ``ShimmerDirection``. Use `bandWidthRatio` to control the shimmer sweep width; values are clamped to the `0.1...6` range.

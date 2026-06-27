@@ -16,6 +16,7 @@ public struct ShimmerConfiguration {
   public let direction: ShimmerDirection
 
   /// 1.0을 기준으로 빛띠의 폭을 조절합니다.
+  /// 유효 범위는 0.1...6이며, 범위 밖 값은 자동으로 정규화됩니다.
   public let bandWidthRatio: CGFloat
 
   public let isActive: Bool

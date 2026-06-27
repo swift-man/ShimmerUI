@@ -79,6 +79,13 @@ struct ShimmerUITests {
     #expect(belowMinimum.duration == 0.1)
     #expect(belowMinimum.bandWidthRatio == 0.1)
 
+    let upperBoundary = ShimmerConfiguration(
+      duration: 2,
+      bandWidthRatio: 6
+    )
+    #expect(upperBoundary.duration == 2)
+    #expect(upperBoundary.bandWidthRatio == 6)
+
     let aboveMaximum = ShimmerConfiguration(
       duration: 2,
       bandWidthRatio: 10

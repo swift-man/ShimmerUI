@@ -57,13 +57,20 @@ struct ShimmerUITests {
   }
 
   @Test
+  func shimmerConfigurationUsesAiLoadingDefaults() {
+    let configuration = ShimmerConfiguration()
+    #expect(configuration.duration == 1.6)
+    #expect(configuration.bandWidthRatio == 3.4)
+  }
+
+  @Test
   func shimmerConfigurationNormalizesInvalidValues() {
     let nonFinite = ShimmerConfiguration(
       duration: .nan,
       bandWidthRatio: .infinity
     )
-    #expect(nonFinite.duration == 1.2)
-    #expect(nonFinite.bandWidthRatio == 2.2)
+    #expect(nonFinite.duration == 1.6)
+    #expect(nonFinite.bandWidthRatio == 3.4)
 
     let belowMinimum = ShimmerConfiguration(
       duration: -1,
@@ -72,12 +79,19 @@ struct ShimmerUITests {
     #expect(belowMinimum.duration == 0.1)
     #expect(belowMinimum.bandWidthRatio == 0.1)
 
+    let upperBoundary = ShimmerConfiguration(
+      duration: 2,
+      bandWidthRatio: 6
+    )
+    #expect(upperBoundary.duration == 2)
+    #expect(upperBoundary.bandWidthRatio == 6)
+
     let aboveMaximum = ShimmerConfiguration(
       duration: 2,
       bandWidthRatio: 10
     )
     #expect(aboveMaximum.duration == 2)
-    #expect(aboveMaximum.bandWidthRatio == 3)
+    #expect(aboveMaximum.bandWidthRatio == 6)
   }
 
   @Test

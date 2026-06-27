@@ -16,6 +16,7 @@ public struct ShimmerConfiguration {
   public let direction: ShimmerDirection
 
   /// 1.0을 기준으로 빛띠의 폭을 조절합니다.
+  /// 유효 범위는 0.1...6이며, 범위 밖 값은 자동으로 정규화됩니다.
   public let bandWidthRatio: CGFloat
 
   public let isActive: Bool
@@ -23,9 +24,9 @@ public struct ShimmerConfiguration {
   public init(
     baseColor: Color = ShimmerConfigurationColorPreset.light.baseColor,
     highlightColor: Color = ShimmerConfigurationColorPreset.light.highlightColor,
-    duration: TimeInterval = 1.2,
+    duration: TimeInterval = 1.6,
     direction: ShimmerDirection = .leftRight,
-    bandWidthRatio: CGFloat = 2.2,
+    bandWidthRatio: CGFloat = 3.4,
     isActive: Bool = true
   ) {
     self.baseColor = baseColor
@@ -38,9 +39,9 @@ public struct ShimmerConfiguration {
 
   public init(
     preset: ShimmerConfigurationColorPreset,
-    duration: TimeInterval = 1.2,
+    duration: TimeInterval = 1.6,
     direction: ShimmerDirection = .leftRight,
-    bandWidthRatio: CGFloat = 2.2,
+    bandWidthRatio: CGFloat = 3.4,
     isActive: Bool = true
   ) {
     self.init(
@@ -66,11 +67,11 @@ public struct ShimmerConfiguration {
 }
 
 extension ShimmerConfiguration {
-  static let defaultDuration: TimeInterval = 1.2
+  static let defaultDuration: TimeInterval = 1.6
   static let minimumDuration: TimeInterval = 0.1
-  static let defaultBandWidthRatio: CGFloat = 2.2
+  static let defaultBandWidthRatio: CGFloat = 3.4
   static let minimumBandWidthRatio: CGFloat = 0.1
-  static let maximumBandWidthRatio: CGFloat = 3
+  static let maximumBandWidthRatio: CGFloat = 6
 
   static func normalizedDuration(_ duration: TimeInterval) -> TimeInterval {
     guard duration.isFinite else { return defaultDuration }

@@ -13,7 +13,7 @@ ShimmerText("Loading")
 
 ShimmerText(
   "Thinking",
-  configuration: .init(bandWidthRatio: 2.6)
+  configuration: .init(bandWidthRatio: 4.2)
 )
 
 ShimmerLoadingUI.Container {
@@ -27,4 +27,4 @@ ShimmerLoadingUI.Loading(isLoading: isLoading) {
 }
 ```
 
-Customize shimmer behavior with ``ShimmerConfiguration`` and ``ShimmerDirection``. Use `bandWidthRatio` to control the shimmer sweep width; values are clamped to the `0.1...6` range.
+Customize shimmer behavior with ``ShimmerConfiguration`` and ``ShimmerDirection``. The default uses a 1.6-second sweep with a wider `3.4` band ratio for a calm AI loading effect. Use `bandWidthRatio` to control the shimmer sweep width; values are clamped to the `0.1...6` range.

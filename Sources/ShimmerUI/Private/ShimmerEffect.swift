@@ -100,9 +100,11 @@ private struct ShimmerBand: View {
     LinearGradient(
       stops: [
         .init(color: .clear, location: 0),
-        .init(color: configuration.highlightColor.opacity(0.18), location: 0.28),
+        .init(color: configuration.highlightColor.opacity(0.35), location: 0.22),
+        .init(color: configuration.highlightColor.opacity(0.85), location: 0.4),
         .init(color: configuration.highlightColor, location: 0.5),
-        .init(color: configuration.highlightColor.opacity(0.18), location: 0.72),
+        .init(color: configuration.highlightColor.opacity(0.85), location: 0.6),
+        .init(color: configuration.highlightColor.opacity(0.35), location: 0.78),
         .init(color: .clear, location: 1)
       ],
       startPoint: .leading,

@@ -4,6 +4,8 @@ All notable changes to ShimmerUI are documented in this file.
 
 ## Unreleased
 
+## [1.1.0] - 2026-07-08
+
 ### Added
 - Added internal rendering regression coverage for the default gradient profile and representative shimmer band sizes.
 - Added collapsed-size shimmer band geometry coverage.

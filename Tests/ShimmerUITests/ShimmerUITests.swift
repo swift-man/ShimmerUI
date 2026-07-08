@@ -132,7 +132,7 @@ struct ShimmerUITests {
   }
 
   @Test
-  func shimmerBandStylePrecomputesFrameInvariantStops() {
+  func shimmerBandStylePrecomputesFrameInvariantInputs() {
     let highlightColor = Color.blue
     let configuration = ShimmerConfiguration(
       highlightColor: highlightColor,
@@ -145,6 +145,9 @@ struct ShimmerUITests {
     )
 
     #expect(style.direction == .topLeftBottomRight)
+    #expect(style.unitVector.dx == configuration.direction.unitVector.dx)
+    #expect(style.unitVector.dy == configuration.direction.unitVector.dy)
+    #expect(abs(style.angle.radians - configuration.direction.angle.radians) < 0.001)
     #expect(style.bandWidthRatio == 4.2)
     #expect(style.gradientStops.count == expectedStops.count)
     #expect(style.gradientStops.map(\.location) == expectedStops.map(\.location))

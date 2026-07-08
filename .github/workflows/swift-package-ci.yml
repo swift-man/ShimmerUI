@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   build-and-test:
-    runs-on: macos-latest
+    runs-on: macos-15
     timeout-minutes: 15
 
     steps:
@@ -38,7 +38,7 @@ jobs:
 
   platform-builds:
     name: Platform Build (${{ matrix.name }})
-    runs-on: macos-latest
+    runs-on: macos-15
     timeout-minutes: 30
 
     strategy:
@@ -51,6 +51,9 @@ jobs:
           - name: tvOS
             destination: generic/platform=tvOS
             derived-data: tvos
+          - name: watchOS
+            destination: generic/platform=watchOS
+            derived-data: watchos
 
     steps:
       # actions/checkout@v7

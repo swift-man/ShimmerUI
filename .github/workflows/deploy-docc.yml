@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   deploy-docs:
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
       # actions/checkout@v7

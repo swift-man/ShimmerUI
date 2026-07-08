@@ -89,7 +89,8 @@ swift test
 ```
 
 Pull requests and pushes to `main` run the `Swift Package CI` GitHub Actions
-workflow, which verifies `swift build` and `swift test` on macOS.
+workflow, which verifies `swift build`, `swift test`, and iOS and tvOS package
+builds on macOS.
 
 ## Documentation Deployment
 

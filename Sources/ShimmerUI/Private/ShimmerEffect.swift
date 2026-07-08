@@ -16,6 +16,24 @@ private struct ShimmerAnimationToken: Hashable {
   let bandWidthRatio: CGFloat
 }
 
+struct ShimmerBandStyle {
+  let direction: ShimmerDirection
+  let unitVector: CGVector
+  let angle: Angle
+  let bandWidthRatio: CGFloat
+  let gradientStops: [Gradient.Stop]
+
+  init(configuration: ShimmerConfiguration) {
+    direction = configuration.direction
+    unitVector = configuration.direction.unitVector
+    angle = configuration.direction.angle
+    bandWidthRatio = configuration.bandWidthRatio
+    gradientStops = ShimmerBandGradientProfile.gradientStops(
+      highlightColor: configuration.highlightColor
+    )
+  }
+}
+
 @MainActor
 struct ShimmerModifier: ViewModifier {
   let configuration: ShimmerConfiguration
@@ -37,12 +55,21 @@ struct ShimmerModifier: ViewModifier {
     content
       .overlay {
         if shouldAnimate {
+          let bandStyle = ShimmerBandStyle(configuration: configuration)
+
           GeometryReader { proxy in
+            let size = proxy.size
+            let geometry = ShimmerBandGeometry(
+              size: size,
+              bandWidthRatio: bandStyle.bandWidthRatio
+            )
+
             TimelineView(.animation) { timeline in
               ShimmerBand(
-                size: proxy.size,
+                size: size,
+                geometry: geometry,
                 progress: progress(at: timeline.date),
-                configuration: configuration
+                style: bandStyle
               )
             }
           }
@@ -74,15 +101,12 @@ struct ShimmerModifier: ViewModifier {
 @MainActor
 private struct ShimmerBand: View {
   let size: CGSize
+  let geometry: ShimmerBandGeometry
   let progress: CGFloat
-  let configuration: ShimmerConfiguration
+  let style: ShimmerBandStyle
 
   var body: some View {
-    let vector = configuration.direction.unitVector
-    let geometry = ShimmerBandGeometry(
-      size: size,
-      bandWidthRatio: configuration.bandWidthRatio
-    )
+    let vector = style.unitVector
 
     // 진행 방향으로 뷰를 투영한 길이를 이용해 시작/종료 지점을 화면 밖으로 배치합니다.
     let projectedHalfLength = (
@@ -94,14 +118,12 @@ private struct ShimmerBand: View {
     let phase = min(max(progress, 0), 1) * 2 - 1
 
     LinearGradient(
-      stops: ShimmerBandGradientProfile.gradientStops(
-        highlightColor: configuration.highlightColor
-      ),
+      stops: style.gradientStops,
       startPoint: .leading,
       endPoint: .trailing
     )
     .frame(width: geometry.bandWidth, height: geometry.crossLength)
-    .rotationEffect(configuration.direction.angle)
+    .rotationEffect(style.angle)
     .position(
       x: size.width / 2 + vector.dx * phase * travelDistance,
       y: size.height / 2 + vector.dy * phase * travelDistance

@@ -98,15 +98,9 @@ private struct ShimmerBand: View {
     let phase = min(max(progress, 0), 1) * 2 - 1
 
     LinearGradient(
-      stops: [
-        .init(color: .clear, location: 0),
-        .init(color: configuration.highlightColor.opacity(0.35), location: 0.22),
-        .init(color: configuration.highlightColor.opacity(0.85), location: 0.4),
-        .init(color: configuration.highlightColor, location: 0.5),
-        .init(color: configuration.highlightColor.opacity(0.85), location: 0.6),
-        .init(color: configuration.highlightColor.opacity(0.35), location: 0.78),
-        .init(color: .clear, location: 1)
-      ],
+      stops: ShimmerBandGradientProfile.gradientStops(
+        highlightColor: configuration.highlightColor
+      ),
       startPoint: .leading,
       endPoint: .trailing
     )

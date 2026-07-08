@@ -26,10 +26,10 @@ struct ShimmerBandGradientProfile {
 
   static func gradientStops(highlightColor: Color) -> [Gradient.Stop] {
     defaultStops.map { stop in
-      let color = stop.opacity == 0
-        ? Color.clear
-        : highlightColor.opacity(stop.opacity)
-      return .init(color: color, location: stop.location)
+      .init(
+        color: highlightColor.opacity(stop.opacity),
+        location: stop.location
+      )
     }
   }
 }

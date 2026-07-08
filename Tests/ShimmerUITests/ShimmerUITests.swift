@@ -103,11 +103,24 @@ struct ShimmerUITests {
   @Test
   func shimmerGradientProfileMatchesAiLoadingSnapshot() {
     let stops = ShimmerBandGradientProfile.defaultStops
+    let highlightColor = Color.white
+    let gradientStops = ShimmerBandGradientProfile.gradientStops(
+      highlightColor: highlightColor
+    )
     let expectedOpacities = [0, 0.35, 0.85, 1, 0.85, 0.35, 0]
     let expectedLocations: [CGFloat] = [0, 0.22, 0.4, 0.5, 0.6, 0.78, 1]
 
     #expect(stops.map(\.opacity) == expectedOpacities)
     #expect(stops.map(\.location) == expectedLocations)
+    #expect(gradientStops.count == stops.count)
+    #expect(gradientStops.map(\.location) == expectedLocations)
+    #expect(
+      gradientStops.map(\.color) == expectedOpacities.map {
+        highlightColor.opacity($0)
+      }
+    )
+    #expect(gradientStops.first?.color != Color.clear)
+    #expect(gradientStops.last?.color != Color.clear)
     #expect(zip(stops, stops.dropFirst()).allSatisfy { $0.location < $1.location })
 
     for index in 0..<stops.count / 2 {

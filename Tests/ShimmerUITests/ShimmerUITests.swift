@@ -159,10 +159,13 @@ struct ShimmerUITests {
     ]
 
     for snapshot in snapshots {
-      let diagonal = (
-        snapshot.size.width * snapshot.size.width +
-        snapshot.size.height * snapshot.size.height
-      ).squareRoot()
+      let diagonal = max(
+        (
+          snapshot.size.width * snapshot.size.width +
+          snapshot.size.height * snapshot.size.height
+        ).squareRoot(),
+        1
+      )
       let geometry = ShimmerBandGeometry(
         diagonal: diagonal,
         bandWidthRatio: configuration.bandWidthRatio

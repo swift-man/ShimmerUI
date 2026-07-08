@@ -6,6 +6,7 @@ All notable changes to ShimmerUI are documented in this file.
 
 ### Changed
 - CI now pins macOS jobs to the macOS 15 runner image and validates watchOS package builds.
+- CI now bounds DocC deployment runtime and skips platform builds when package tests fail.
 
 ## [1.1.1] - 2026-07-08
 

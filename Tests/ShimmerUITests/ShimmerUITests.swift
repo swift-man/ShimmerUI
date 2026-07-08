@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Testing
 
-import ShimmerUI
+@testable import ShimmerUI
 
 struct ShimmerUITests {
   @Test
@@ -98,5 +98,65 @@ struct ShimmerUITests {
   func legacyTypeAliasStillWorks() {
     let legacyName: ShimmerUI.Type = ShimmerLoadingUI.self
     #expect(legacyName == ShimmerLoadingUI.self)
+  }
+
+  @Test
+  func shimmerGradientProfileMatchesAiLoadingSnapshot() {
+    let stops = ShimmerBandGradientProfile.defaultStops
+    let expectedOpacities = [0, 0.35, 0.85, 1, 0.85, 0.35, 0]
+    let expectedLocations: [CGFloat] = [0, 0.22, 0.4, 0.5, 0.6, 0.78, 1]
+
+    #expect(stops.map(\.opacity) == expectedOpacities)
+    #expect(stops.map(\.location) == expectedLocations)
+    #expect(zip(stops, stops.dropFirst()).allSatisfy { $0.location < $1.location })
+
+    for index in 0..<stops.count / 2 {
+      let leading = stops[index]
+      let trailing = stops[stops.count - index - 1]
+      #expect(leading.opacity == trailing.opacity)
+      #expect(abs(leading.location + trailing.location - 1) < 0.001)
+    }
+  }
+
+  @Test
+  func shimmerBandGeometryMatchesRepresentativeVisualSnapshots() {
+    struct VisualSnapshot {
+      let size: CGSize
+      let bandWidth: CGFloat
+      let crossLength: CGFloat
+    }
+
+    let configuration = ShimmerConfiguration()
+    let snapshots = [
+      VisualSnapshot(
+        size: .init(width: 160, height: 24),
+        bandWidth: 116.4887908770625,
+        crossLength: 763.6487401940764
+      ),
+      VisualSnapshot(
+        size: .init(width: 320, height: 180),
+        bandWidth: 264.3488604098758,
+        crossLength: 1732.9536404647415
+      ),
+      VisualSnapshot(
+        size: .init(width: 390, height: 844),
+        bandWidth: 669.4203630007082,
+        crossLength: 4388.4223796713095
+      )
+    ]
+
+    for snapshot in snapshots {
+      let diagonal = (
+        snapshot.size.width * snapshot.size.width +
+        snapshot.size.height * snapshot.size.height
+      ).squareRoot()
+      let geometry = ShimmerBandGeometry(
+        diagonal: diagonal,
+        bandWidthRatio: configuration.bandWidthRatio
+      )
+
+      #expect(abs(geometry.bandWidth - snapshot.bandWidth) < 0.001)
+      #expect(abs(geometry.crossLength - snapshot.crossLength) < 0.001)
+    }
   }
 }

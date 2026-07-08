@@ -79,12 +79,8 @@ private struct ShimmerBand: View {
 
   var body: some View {
     let vector = configuration.direction.unitVector
-    let diagonal = max(
-      (size.width * size.width + size.height * size.height).squareRoot(),
-      1
-    )
     let geometry = ShimmerBandGeometry(
-      diagonal: diagonal,
+      size: size,
       bandWidthRatio: configuration.bandWidthRatio
     )
 

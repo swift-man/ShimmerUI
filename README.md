@@ -88,6 +88,9 @@ ShimmerLoadingUI.Loading(isLoading: isLoading) {
 swift test
 ```
 
+Pull requests and pushes to `main` run the `Swift Package CI` GitHub Actions
+workflow, which verifies `swift build` and `swift test` on macOS.
+
 ## Documentation Deployment
 
 Generate the DocC static site locally:

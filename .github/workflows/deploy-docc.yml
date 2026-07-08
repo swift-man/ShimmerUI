@@ -15,7 +15,8 @@ concurrency:
 
 jobs:
   deploy-docs:
-    runs-on: macos-latest
+    runs-on: macos-15
+    timeout-minutes: 20
 
     steps:
       # actions/checkout@v7

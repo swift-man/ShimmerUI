@@ -16,6 +16,20 @@ private struct ShimmerAnimationToken: Hashable {
   let bandWidthRatio: CGFloat
 }
 
+struct ShimmerBandStyle {
+  let direction: ShimmerDirection
+  let bandWidthRatio: CGFloat
+  let gradientStops: [Gradient.Stop]
+
+  init(configuration: ShimmerConfiguration) {
+    direction = configuration.direction
+    bandWidthRatio = configuration.bandWidthRatio
+    gradientStops = ShimmerBandGradientProfile.gradientStops(
+      highlightColor: configuration.highlightColor
+    )
+  }
+}
+
 @MainActor
 struct ShimmerModifier: ViewModifier {
   let configuration: ShimmerConfiguration
@@ -37,12 +51,14 @@ struct ShimmerModifier: ViewModifier {
     content
       .overlay {
         if shouldAnimate {
+          let bandStyle = ShimmerBandStyle(configuration: configuration)
+
           GeometryReader { proxy in
             TimelineView(.animation) { timeline in
               ShimmerBand(
                 size: proxy.size,
                 progress: progress(at: timeline.date),
-                configuration: configuration
+                style: bandStyle
               )
             }
           }
@@ -75,13 +91,13 @@ struct ShimmerModifier: ViewModifier {
 private struct ShimmerBand: View {
   let size: CGSize
   let progress: CGFloat
-  let configuration: ShimmerConfiguration
+  let style: ShimmerBandStyle
 
   var body: some View {
-    let vector = configuration.direction.unitVector
+    let vector = style.direction.unitVector
     let geometry = ShimmerBandGeometry(
       size: size,
-      bandWidthRatio: configuration.bandWidthRatio
+      bandWidthRatio: style.bandWidthRatio
     )
 
     // 진행 방향으로 뷰를 투영한 길이를 이용해 시작/종료 지점을 화면 밖으로 배치합니다.
@@ -94,14 +110,12 @@ private struct ShimmerBand: View {
     let phase = min(max(progress, 0), 1) * 2 - 1
 
     LinearGradient(
-      stops: ShimmerBandGradientProfile.gradientStops(
-        highlightColor: configuration.highlightColor
-      ),
+      stops: style.gradientStops,
       startPoint: .leading,
       endPoint: .trailing
     )
     .frame(width: geometry.bandWidth, height: geometry.crossLength)
-    .rotationEffect(configuration.direction.angle)
+    .rotationEffect(style.direction.angle)
     .position(
       x: size.width / 2 + vector.dx * phase * travelDistance,
       y: size.height / 2 + vector.dy * phase * travelDistance

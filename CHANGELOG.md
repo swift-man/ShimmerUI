@@ -4,9 +4,6 @@ All notable changes to ShimmerUI are documented in this file.
 
 ## Unreleased
 
-### Changed
-- Improved CI platform build log visibility by allowing `xcodebuild` to emit full diagnostics.
-
 ## [1.1.0] - 2026-07-08
 
 ### Added
@@ -19,6 +16,7 @@ All notable changes to ShimmerUI are documented in this file.
 - Increased the default `bandWidthRatio` to `4.0` for a stronger AI loading shimmer.
 - Made the shimmer highlight band more visible by adding softer shoulder stops around the center highlight.
 - Centralized internal shimmer band geometry sizing from view size.
+- Improved CI platform build log visibility by allowing `xcodebuild` to emit full diagnostics.
 
 ### Fixed
 - Preserved the highlight color hue for fully transparent shimmer gradient stops.

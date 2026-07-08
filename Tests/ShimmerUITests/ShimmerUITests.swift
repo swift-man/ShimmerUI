@@ -60,7 +60,7 @@ struct ShimmerUITests {
   func shimmerConfigurationUsesAiLoadingDefaults() {
     let configuration = ShimmerConfiguration()
     #expect(configuration.duration == 1.6)
-    #expect(configuration.bandWidthRatio == 3.4)
+    #expect(configuration.bandWidthRatio == 4.0)
   }
 
   @Test
@@ -70,7 +70,7 @@ struct ShimmerUITests {
       bandWidthRatio: .infinity
     )
     #expect(nonFinite.duration == 1.6)
-    #expect(nonFinite.bandWidthRatio == 3.4)
+    #expect(nonFinite.bandWidthRatio == 4.0)
 
     let belowMinimum = ShimmerConfiguration(
       duration: -1,

@@ -2,6 +2,12 @@
 
 All notable changes to ShimmerUI are documented in this file.
 
+## Unreleased
+
+### Changed
+- Increased the default `bandWidthRatio` to `4.0` for a stronger AI loading shimmer.
+- Made the shimmer highlight band more visible by adding softer shoulder stops around the center highlight.
+
 ## [1.0.0] - 2026-06-28
 
 ### Added

@@ -4,6 +4,11 @@ All notable changes to ShimmerUI are documented in this file.
 
 ## Unreleased
 
+## [1.1.1] - 2026-07-08
+
+### Changed
+- Updated pinned GitHub Actions dependencies to Node 24 based releases.
+
 ## [1.1.0] - 2026-07-08
 
 ### Added

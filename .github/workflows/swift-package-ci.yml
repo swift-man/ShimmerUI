@@ -38,6 +38,7 @@ jobs:
   platform-builds:
     name: Platform Build (${{ matrix.name }})
     runs-on: macos-latest
+    timeout-minutes: 30
 
     strategy:
       fail-fast: false

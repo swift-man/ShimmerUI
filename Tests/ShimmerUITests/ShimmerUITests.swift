@@ -159,20 +159,58 @@ struct ShimmerUITests {
     ]
 
     for snapshot in snapshots {
-      let diagonal = max(
-        (
-          snapshot.size.width * snapshot.size.width +
-          snapshot.size.height * snapshot.size.height
-        ).squareRoot(),
-        1
-      )
       let geometry = ShimmerBandGeometry(
-        diagonal: diagonal,
+        size: snapshot.size,
         bandWidthRatio: configuration.bandWidthRatio
       )
 
       #expect(abs(geometry.bandWidth - snapshot.bandWidth) < 0.001)
       #expect(abs(geometry.crossLength - snapshot.crossLength) < 0.001)
     }
+  }
+
+  @Test
+  func shimmerBandGeometryPreservesCollapsedSizeCoverage() {
+    let configuration = ShimmerConfiguration()
+    let collapsedSizes: [CGSize] = [
+      .zero,
+      .init(width: 0.1, height: 0.2)
+    ]
+
+    for size in collapsedSizes {
+      let geometry = ShimmerBandGeometry(
+        size: size,
+        bandWidthRatio: configuration.bandWidthRatio
+      )
+
+      #expect(ShimmerBandGeometry.diagonal(for: size) == 1)
+      #expect(geometry.bandWidth == 18)
+      #expect(geometry.crossLength == 22)
+    }
+  }
+
+  @Test
+  func shimmerBandGeometryFallsBackForInvalidDiagonal() {
+    let geometry = ShimmerBandGeometry(
+      diagonal: .nan,
+      bandWidthRatio: ShimmerConfiguration().bandWidthRatio
+    )
+
+    #expect(geometry.bandWidth == 18)
+    #expect(geometry.crossLength == 22)
+  }
+
+  @Test
+  func shimmerBandGeometryKeepsLargeFiniteSizes() {
+    let size = CGSize(width: 1e155, height: 1e155)
+    let geometry = ShimmerBandGeometry(
+      size: size,
+      bandWidthRatio: ShimmerConfiguration().bandWidthRatio
+    )
+
+    #expect(ShimmerBandGeometry.diagonal(for: size).isFinite)
+    #expect(ShimmerBandGeometry.diagonal(for: size) > 1)
+    #expect(geometry.bandWidth > 18)
+    #expect(geometry.crossLength.isFinite)
   }
 }

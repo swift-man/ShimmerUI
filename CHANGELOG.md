@@ -15,6 +15,7 @@ All notable changes to ShimmerUI are documented in this file.
 
 ### Fixed
 - Preserved the highlight color hue for fully transparent shimmer gradient stops.
+- Kept large finite shimmer geometry sizes from falling back to the minimum diagonal.
 
 ## [1.0.0] - 2026-06-28
 

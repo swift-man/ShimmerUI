@@ -199,4 +199,18 @@ struct ShimmerUITests {
     #expect(geometry.bandWidth == 18)
     #expect(geometry.crossLength == 22)
   }
+
+  @Test
+  func shimmerBandGeometryKeepsLargeFiniteSizes() {
+    let size = CGSize(width: 1e155, height: 1e155)
+    let geometry = ShimmerBandGeometry(
+      size: size,
+      bandWidthRatio: ShimmerConfiguration().bandWidthRatio
+    )
+
+    #expect(ShimmerBandGeometry.diagonal(for: size).isFinite)
+    #expect(ShimmerBandGeometry.diagonal(for: size) > 1)
+    #expect(geometry.bandWidth > 18)
+    #expect(geometry.crossLength.isFinite)
+  }
 }

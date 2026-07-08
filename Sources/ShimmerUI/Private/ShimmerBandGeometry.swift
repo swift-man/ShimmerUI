@@ -39,12 +39,7 @@ struct ShimmerBandGeometry: Equatable {
   }
 
   static func diagonal(for size: CGSize) -> CGFloat {
-    normalizedDiagonal(
-      (
-        size.width * size.width +
-        size.height * size.height
-      ).squareRoot()
-    )
+    normalizedDiagonal(hypot(size.width, size.height))
   }
 
   private static func normalizedDiagonal(_ diagonal: CGFloat) -> CGFloat {

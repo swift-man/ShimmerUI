@@ -19,6 +19,7 @@ concurrency:
 jobs:
   build-and-test:
     runs-on: macos-latest
+    timeout-minutes: 15
 
     steps:
       # actions/checkout@v4
@@ -34,3 +35,38 @@ jobs:
 
       - name: Test Package
         run: swift test
+
+  platform-builds:
+    name: Platform Build (${{ matrix.name }})
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: iOS
+            destination: generic/platform=iOS
+            derived-data: ios
+          - name: tvOS
+            destination: generic/platform=tvOS
+            derived-data: tvos
+
+    steps:
+      # actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Show Xcode Version
+        run: xcodebuild -version
+
+      - name: Build ${{ matrix.name }}
+        run: |
+          xcodebuild \
+            -scheme ShimmerUI \
+            -destination "${{ matrix.destination }}" \
+            -derivedDataPath "${{ runner.temp }}/ShimmerUI-${{ matrix.derived-data }}" \
+            build \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet

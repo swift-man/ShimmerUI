@@ -4,10 +4,13 @@ All notable changes to ShimmerUI are documented in this file.
 
 ## Unreleased
 
+## [1.1.0] - 2026-07-08
+
 ### Added
 - Added internal rendering regression coverage for the default gradient profile and representative shimmer band sizes.
 - Added collapsed-size shimmer band geometry coverage.
 - Added GitHub Actions Swift Package CI for pull requests and `main` pushes.
+- Added CI platform build verification for iOS and tvOS.
 
 ### Changed
 - Increased the default `bandWidthRatio` to `4.0` for a stronger AI loading shimmer.

@@ -4,6 +4,9 @@ All notable changes to ShimmerUI are documented in this file.
 
 ## Unreleased
 
+### Changed
+- Improved CI platform build log visibility by allowing `xcodebuild` to emit full diagnostics.
+
 ## [1.1.0] - 2026-07-08
 
 ### Added

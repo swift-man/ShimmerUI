@@ -68,5 +68,4 @@ jobs:
             -destination "${{ matrix.destination }}" \
             -derivedDataPath "${{ runner.temp }}/ShimmerUI-${{ matrix.derived-data }}" \
             build \
-            CODE_SIGNING_ALLOWED=NO \
-            -quiet
+            CODE_SIGNING_ALLOWED=NO
